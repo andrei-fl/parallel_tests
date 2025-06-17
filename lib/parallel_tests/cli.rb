@@ -262,6 +262,10 @@ module ParallelTests
         ) { |groups| options[:only_group] = groups.map(&:to_i) }
 
         opts.on("-e", "--exec [COMMAND]", "execute this code parallel and with ENV['TEST_ENV_NUMBER']") { |arg| options[:execute] = Shellwords.shellsplit(arg) }
+        opts.on(
+          "--exec-args COMMAND",
+          "stuff"
+        ) { |arg| options[:execute_args] = Shellwords.shellsplit(arg) }
         opts.on("-o", "--test-options '[OPTIONS]'", "execute test commands with those options") { |arg| options[:test_options] = Shellwords.shellsplit(arg) }
         opts.on("-t", "--type [TYPE]", "test(default) / rspec / cucumber / spinach") do |type|
           @runner = load_runner(type)

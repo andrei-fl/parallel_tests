@@ -168,6 +168,14 @@ module ParallelTests
           ["ruby"]
         end
 
+        def build_command(file_list, options)
+          if options[:execute_args]
+            options[:execute_args] + file_list
+          else
+            build_test_command(file_list, options)
+          end
+        end
+
         def sum_up_results(results)
           results = results.join(' ').gsub(/s\b/, '') # combine and singularize results
           counts = results.scan(/(\d+) (\w+)/)

@@ -7,8 +7,7 @@ module ParallelTests
       DEV_NULL = (WINDOWS ? "NUL" : "/dev/null")
       class << self
         def run_tests(test_files, process_number, num_processes, options)
-          cmd = [*executable, *options[:test_options], *color, *spec_opts, *test_files]
-          execute_command(cmd, process_number, num_processes, options)
+          execute_command(build_command(test_files, options), process_number, num_processes, options)
         end
 
         def determine_executable
@@ -19,6 +18,10 @@ module ParallelTests
           else
             ["rspec"]
           end
+        end
+
+        def build_test_command(file_list, options)
+          [*executable, *options[:test_options], *color, *spec_opts, *file_list]
         end
 
         def runtime_log
